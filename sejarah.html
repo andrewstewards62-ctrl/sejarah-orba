@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Warisan Problematika Indonesia: Orde Baru vs Reformasi</title>
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              base: "#0f172a",
+              card: "#131b2c",
+              accent: "#fbbf24",
+              accent2: "#14b8a6",
+              muted: "#94a3b8",
+            },
+            fontFamily: {
+              sans: ["Inter", "system-ui", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="bg-base text-slate-100 min-h-screen">
+    <!-- bg -->
+    <div
+      class="fixed inset-0 -z-10 bg-gradient-to-b from-slate-950 via-base to-slate-900"
+    ></div>
+
+    <div class="max-w-6xl mx-auto px-4 py-8 md:py-12">
+      <!-- header -->
+      <header class="mb-10">
+        <div
+          class="rounded-2xl bg-gradient-to-r from-slate-950/60 via-card/70 to-slate-900/50 border border-slate-800/60 px-6 py-8 md:px-10 md:py-10 shadow-[0_20px_60px_rgba(0,0,0,0.35)] backdrop-blur"
+        >
+          <p
+            class="inline-flex items-center gap-2 text-xs md:text-sm text-slate-300/70 uppercase tracking-[0.25em] mb-4"
+          >
+            Anggota Kelompok :Brilian, Louis, M.Azka, M.Ridwan
+            <span class="h-px w-8 bg-slate-500/40"></span>
+          </p>
+          <h1
+            class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white mb-3"
+          >
+            Warisan Struktural Indonesia
+          </h1>
+          <p class="text-base md:text-lg text-slate-300 max-w-2xl">
+            Orde Baru vs Era Reformasi — kenapa pola seperti ketimpangan, KKN,
+            dan peran militer masih bisa “menyamar” dalam sistem demokrasi.
+          </p>
+        </div>
+      </header>
+
+      <!-- intro -->
+      <section class="mb-10">
+        <div
+          class="bg-card/70 border border-slate-800 rounded-xl p-6 md:p-7 shadow-lg"
+        >
+          <h2
+            class="text-sm font-semibold tracking-wide text-accent mb-2 uppercase"
+          >
+            Pendahuluan
+          </h2>
+          <p class="text-slate-200 leading-relaxed">
+            Transisi dari rezim otoriter ke demokrasi tidak otomatis menghapus
+            pola-pola lama. Tiga warisan utama Orde Baru —
+            <span class="text-accent2 font-medium">ekonomi sentralistik</span>,
+            <span class="text-accent2 font-medium">KKN</span>, dan
+            <span class="text-accent2 font-medium">dwifungsi militer</span> —
+            bukan hilang, tapi berubah bentuk. Di Reformasi, pola itu
+            <span class="text-slate-100 font-medium">terdesentralisasi</span>,
+            <span class="text-slate-100 font-medium">masuk ke daerah</span>, dan
+            <span class="text-slate-100 font-medium"
+              >dibungkus regulasi baru</span
+            >.
+          </p>
+        </div>
+      </section>
+
+      <!-- chart (canvas manual) -->
+      <section class="mb-10">
+        <div
+          class="bg-card/70 border border-slate-800 rounded-xl p-6 md:p-7 shadow-lg"
+        >
+          <div class="flex items-center justify-between gap-3 mb-5 flex-wrap">
+            <h2 class="text-lg md:text-xl font-semibold text-white">
+              Visualisasi Indikator Struktural
+            </h2>
+            <p class="text-xs md:text-sm text-muted">
+              Perbandingan indikatif — bukan angka resmi BPS
+            </p>
+          </div>
+          <div
+            class="bg-slate-950/30 rounded-lg border border-slate-900/60 p-4"
+          >
+            <canvas
+              id="comparisonCanvas"
+              class="w-full h-[320px] block rounded-lg bg-slate-950/10"
+            ></canvas>
+          </div>
+          <div class="flex flex-wrap gap-4 mt-4 text-sm">
+            <div class="inline-flex items-center gap-2">
+              <span class="h-3 w-3 rounded-sm bg-amber-400"></span>
+              <span class="text-slate-200">Orde Baru (sentral)</span>
+            </div>
+            <div class="inline-flex items-center gap-2">
+              <span class="h-3 w-3 rounded-sm bg-teal-400"></span>
+              <span class="text-slate-200">Reformasi (desentral)</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- tabs -->
+      <section class="mb-10">
+        <!-- tombol -->
+        <div
+          class="flex gap-2 md:gap-3 mb-5 overflow-x-auto pb-2 scrollbar-none"
+        >
+          <button
+            data-target="panel-ekonomi"
+            class="tab-btn flex-1 md:flex-none px-4 py-2.5 rounded-lg bg-[#fbbf24] text-white font-semibold text-sm md:text-base border border-amber-200/60 shadow"
+          >
+            I. Ekonomi & Ketimpangan
+          </button>
+          <button
+            data-target="panel-kkn"
+            class="tab-btn flex-1 md:flex-none px-4 py-2.5 rounded-lg bg-[#fbbf24] text-white font-semibold text-sm md:text-base border border-transparent shadow"
+          >
+            II. KKN
+          </button>
+          <button
+            data-target="panel-militer"
+            class="tab-btn flex-1 md:flex-none px-4 py-2.5 rounded-lg bg-[#fbbf24] text-white font-semibold text-sm md:text-base border border-transparent shadow"
+          >
+            III. Dwifungsi ABRI
+          </button>
+        </div>
+
+        <!-- panels -->
+        <div class="space-y-6">
+          <!-- ekonomi -->
+          <div
+            id="panel-ekonomi"
+            class="tab-panel bg-card/70 border border-slate-800 rounded-xl p-6 md:p-7 shadow"
+          >
+            <h3 class="text-xl font-semibold text-white mb-3">
+              Ketimpangan Ekonomi & Pembangunan Sentralistik
+            </h3>
+            <p class="text-muted mb-5 italic">
+              “Di Orba: kaya menumpuk di pusat. Di Reformasi: kaya menyebar ke
+              pusat dan daerah, tapi tetap di lingkar kekuasaan.”
+            </p>
+            <div class="overflow-x-auto">
+              <table
+                class="min-w-full text-sm border border-slate-800/80 rounded-lg overflow-hidden"
+              >
+                <thead
+                  class="bg-slate-900/60 text-accent uppercase text-xs tracking-wide"
+                >
+                  <tr>
+                    <th class="px-4 py-3 text-left w-1/4">Aspek</th>
+                    <th class="px-4 py-3 text-left w-1/3">Orde Baru</th>
+                    <th class="px-4 py-3 text-left w-1/3">Reformasi</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-800/70">
+                  <tr>
+                    <td class="px-4 py-4 font-medium text-slate-100">
+                      Filosofi pembangunan
+                    </td>
+                    <td class="px-4 py-4 text-slate-300">
+                      Sentralistik, Jakarta-sentris. Growth first.
+                    </td>
+                    <td class="px-4 py-4 text-slate-300">
+                      Desentralisasi & Dana Desa, tapi mega-proyek pusat masih
+                      kuat.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-4 font-medium text-slate-100">
+                      Ketimpangan
+                    </td>
+                    <td class="px-4 py-4 text-slate-300">
+                      Akses ekonomi terkunci di kroni, data gak transparan.
+                    </td>
+                    <td class="px-4 py-4 text-slate-300">
+                      Ketimpangan aset & wilayah masih lebar, muncul oligarki
+                      daerah.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-4 font-medium text-slate-100">
+                      Agraria & lahan
+                    </td>
+                    <td class="px-4 py-4 text-slate-300">
+                      Konsesi HGU/HPH besar-besaran tanpa hak adat.
+                    </td>
+                    <td class="px-4 py-4 text-slate-300">
+                      Konflik agraria belum beres, malah ketemu proyek
+                      infrastruktur baru.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- kkn -->
+          <div
+            id="panel-kkn"
+            class="tab-panel hidden bg-card/70 border border-slate-800 rounded-xl p-6 md:p-7 shadow"
+          >
+            <h3 class="text-xl font-semibold text-white mb-3">
+              Korupsi, Kolusi, dan Nepotisme
+            </h3>
+            <p class="text-muted mb-5 italic">
+              “Dulu terpusat ke atas, sekarang melebar ke samping.”
+            </p>
+            <div class="overflow-x-auto">
+              <table
+                class="min-w-full text-sm border border-slate-800/80 rounded-lg overflow-hidden"
+              >
+                <thead
+                  class="bg-slate-900/60 text-accent2 uppercase text-xs tracking-wide"
+                >
+                  <tr>
+                    <th class="px-4 py-3 text-left w-1/4">Aspek</th>
+                    <th class="px-4 py-3 text-left w-1/3">Orde Baru</th>
+                    <th class="px-4 py-3 text-left w-1/3">Reformasi</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-800/70">
+                  <tr>
+                    <td class="px-4 py-4 font-medium text-slate-100">
+                      Struktur korupsi
+                    </td>
+                    <td class="px-4 py-4 text-slate-300">
+                      Sentral, dilindungi kekuasaan tunggal.
+                    </td>
+                    <td class="px-4 py-4 text-slate-300">
+                      Tersebar: kepala daerah, DPRD, kementerian. Korupsi lokal.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-4 font-medium text-slate-100">Modus</td>
+                    <td class="px-4 py-4 text-slate-300">
+                      Korupsi kebijakan, izin monopoli, yayasan.
+                    </td>
+                    <td class="px-4 py-4 text-slate-300">
+                      Korupsi proyek, pengadaan, jual beli jabatan.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-4 font-medium text-slate-100">
+                      Akuntabilitas
+                    </td>
+                    <td class="px-4 py-4 text-slate-300">Pers dibungkam.</td>
+                    <td class="px-4 py-4 text-slate-300">
+                      Ada KPK & pers bebas, tapi sering dilemahkan politik.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- militer -->
+          <div
+            id="panel-militer"
+            class="tab-panel hidden bg-card/70 border border-slate-800 rounded-xl p-6 md:p-7 shadow"
+          >
+            <h3 class="text-xl font-semibold text-white mb-3">
+              Dwifungsi ABRI & Politik Militer
+            </h3>
+            <p class="text-muted mb-5 italic">
+              “Dwifungsi memang dihapus, tapi jejaring dan bisnisnya gak
+              langsung hilang.”
+            </p>
+            <div class="overflow-x-auto">
+              <table
+                class="min-w-full text-sm border border-slate-800/80 rounded-lg overflow-hidden"
+              >
+                <thead
+                  class="bg-slate-900/60 text-slate-200 uppercase text-xs tracking-wide"
+                >
+                  <tr>
+                    <th class="px-4 py-3 text-left w-1/4">Aspek</th>
+                    <th class="px-4 py-3 text-left w-1/3">Orde Baru</th>
+                    <th class="px-4 py-3 text-left w-1/3">Reformasi</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-800/70">
+                  <tr>
+                    <td class="px-4 py-4 font-medium text-slate-100">
+                      Peran institusional
+                    </td>
+                    <td class="px-4 py-4 text-slate-300">
+                      Dwifungsi: militer & sosial-politik sekaligus.
+                    </td>
+                    <td class="px-4 py-4 text-slate-300">
+                      Dipisah: TNI pertahanan, Polri keamanan.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-4 font-medium text-slate-100">
+                      Jabatan sipil
+                    </td>
+                    <td class="px-4 py-4 text-slate-300">
+                      Perwira aktif isi birokrasi dan BUMN.
+                    </td>
+                    <td class="px-4 py-4 text-slate-300">
+                      Harus mundur dulu, tapi wacana masuk lagi ke K/L masih
+                      ada.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-4 font-medium text-slate-100">
+                      Bisnis militer
+                    </td>
+                    <td class="px-4 py-4 text-slate-300">
+                      Yayasan, koperasi, dan sumber non-budgeter.
+                    </td>
+                    <td class="px-4 py-4 text-slate-300">
+                      Secara formal dilarang, tapi warisan ekonominya belum
+                      beres.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- conclusion -->
+      <section class="mb-10">
+        <div
+          class="bg-gradient-to-r from-slate-950/80 via-slate-900/40 to-slate-950/80 border border-amber-400/40 rounded-xl p-6 md:p-7 shadow-lg"
+        >
+          <h2
+            class="text-lg md:text-xl font-semibold text-amber-300 mb-3 flex items-center gap-2"
+          >
+            <span
+              class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-amber-400/10 border border-amber-200/30 text-xs"
+              >★</span
+            >
+            Analisis Akhir
+          </h2>
+          <p class="text-slate-100 leading-relaxed">
+            Reformasi berhasil membuka ruang politik, tapi pekerjaan rumahnya
+            bukan cuma “ganti rezim”. Tantangan sesungguhnya adalah
+            <span class="font-semibold text-white"
+              >membongkar pola lama yang sudah jadi struktur</span
+            >: ekonomi yang memihak oligarki, korupsi yang kini menetas di
+            daerah, dan jaringan militer yang masih bisa masuk lewat regulasi.
+            Selama pola ini tidak dibereskan, wajahnya akan demokratis — tapi
+            rohnya masih Orba.
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      // --------- TAB LOGIC (semua oranye) ----------
+      const tabButtons = document.querySelectorAll(".tab-btn");
+      const tabPanels = document.querySelectorAll(".tab-panel");
+
+      tabButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const target = btn.getAttribute("data-target");
+
+          // reset semua tombol (tetep oranye, cuma border yang direset)
+          tabButtons.forEach((b) => {
+            b.classList.remove("border-amber-200/60");
+            b.classList.add("border-transparent");
+          });
+
+          // aktif
+          btn.classList.remove("border-transparent");
+          btn.classList.add("border-amber-200/60");
+
+          // show/hide panel
+          tabPanels.forEach((panel) => panel.classList.add("hidden"));
+          document.getElementById(target).classList.remove("hidden");
+        });
+      });
+
+      // --------- CANVAS CHART MANUAL + ANIMASI ----------
+      function drawComparisonChart() {
+        const canvas = document.getElementById("comparisonCanvas");
+        if (!canvas) return;
+
+        const ctx = canvas.getContext("2d");
+        const parentWidth = canvas.parentElement.clientWidth;
+        canvas.width = parentWidth;
+        canvas.height = 320;
+
+        const data = [
+          {
+            label: "Gini Rasio",
+            orba: 0.32,
+            reformasi: 0.38,
+            max: 0.5,
+            isGini: true,
+          },
+          { label: "Top 10% Kekayaan", orba: 68, reformasi: 75, max: 100 },
+          { label: "Kebebasan Pers", orba: 20, reformasi: 70, max: 100 },
+          { label: "Desentralisasi Fiskal", orba: 5, reformasi: 25, max: 50 },
+        ];
+
+        const padding = 50;
+        const chartWidth = canvas.width - padding * 2;
+        const chartHeight = canvas.height - padding * 2;
+        const groupWidth = chartWidth / data.length;
+        const barWidth = 30;
+        const gap = 10;
+        const baseY = canvas.height - padding;
+
+        const colorOrba = "#fbbf24";
+        const colorRef = "#14b8a6";
+
+        // bg
+        ctx.fillStyle = "rgba(2,6,23,0.1)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // judul kecil
+        ctx.fillStyle = "#e2e8f0";
+        ctx.font = "13px Inter, system-ui, sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText(
+          "Perbandingan indikator kunci (tinggi dinormalisasi)",
+          canvas.width / 2,
+          26
+        );
+
+        const start = performance.now();
+        const duration = 700;
+
+        function animate(now) {
+          const progress = Math.min((now - start) / duration, 1);
+
+          // clear area bawah judul
+          ctx.clearRect(0, 40, canvas.width, canvas.height - 40);
+
+          // grid
+          ctx.strokeStyle = "rgba(148,163,184,0.08)";
+          ctx.lineWidth = 1;
+          const grid = 5;
+          for (let i = 0; i <= grid; i++) {
+            const y = baseY - (i / grid) * chartHeight;
+            ctx.beginPath();
+            ctx.moveTo(padding, y);
+            ctx.lineTo(canvas.width - padding, y);
+            ctx.stroke();
+          }
+          // x-axis
+          ctx.beginPath();
+          ctx.strokeStyle = "rgba(148,163,184,0.2)";
+          ctx.lineWidth = 2;
+          ctx.moveTo(padding, baseY);
+          ctx.lineTo(canvas.width - padding, baseY);
+          ctx.stroke();
+
+          data.forEach((item, i) => {
+            const xCenter = padding + i * groupWidth + groupWidth / 2;
+            const maxVal = item.isGini ? 0.5 : item.max || 100;
+            const orbaH =
+              (item.isGini ? item.orba / 0.5 : item.orba / maxVal) *
+              chartHeight *
+              progress;
+            const refH =
+              (item.isGini ? item.reformasi / 0.5 : item.reformasi / maxVal) *
+              chartHeight *
+              progress;
+
+            const orbaX = xCenter - barWidth - gap / 2;
+            const refX = xCenter + gap / 2;
+
+            // orba
+            ctx.fillStyle = colorOrba;
+            ctx.beginPath();
+            ctx.roundRect(orbaX, baseY - orbaH, barWidth, orbaH, 6);
+            ctx.fill();
+
+            // reformasi
+            ctx.fillStyle = colorRef;
+            ctx.beginPath();
+            ctx.roundRect(refX, baseY - refH, barWidth, refH, 6);
+            ctx.fill();
+
+            // value
+            ctx.fillStyle = "#e2e8f0";
+            ctx.font = "11px Inter, system-ui, sans-serif";
+            ctx.textAlign = "center";
+            const orbaLabel = item.isGini
+              ? item.orba.toFixed(2)
+              : Math.round(item.orba) + "%";
+            const refLabel = item.isGini
+              ? item.reformasi.toFixed(2)
+              : Math.round(item.reformasi) + "%";
+            ctx.fillText(orbaLabel, orbaX + barWidth / 2, baseY - orbaH - 6);
+            ctx.fillText(refLabel, refX + barWidth / 2, baseY - refH - 6);
+
+            // label bawah
+            ctx.fillStyle = "rgba(203,213,225,0.7)";
+            ctx.font = "11px Inter, system-ui, sans-serif";
+            const words = item.label.split(" ");
+            const line1 = words.slice(0, 2).join(" ");
+            const line2 = words.slice(2).join(" ");
+            ctx.fillText(line1, xCenter, canvas.height - 16);
+            if (line2) ctx.fillText(line2, xCenter, canvas.height - 4);
+          });
+
+          if (progress < 1) requestAnimationFrame(animate);
+        }
+
+        requestAnimationFrame(animate);
+
+        // redraw kalau resize
+        window.addEventListener(
+          "resize",
+          () => {
+            drawComparisonChart();
+          },
+          { once: true }
+        );
+      }
+
+      document.addEventListener("DOMContentLoaded", drawComparisonChart);
+    </script>
+  </body>
+</html>
